@@ -1,0 +1,5 @@
+[package]
+name = "plato-afterlife"
+version = "0.1.0"
+edition = "2021"
+description = "Ghost tile afterlife — dead agents live on through decaying knowledge tiles"

@@ -1,0 +1,6 @@
+Metadata-Version: 2.4
+Name: plato-afterlife
+Version: 0.1.0
+Summary: Afterlife — ghost tile persistence, reef storage, resurrection protocol
+License: MIT
+Requires-Python: >=3.8

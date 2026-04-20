@@ -1,0 +1,8 @@
+README.md
+pyproject.toml
+src/plato_afterlife/__init__.py
+src/plato_afterlife/afterlife.py
+src/plato_afterlife.egg-info/PKG-INFO
+src/plato_afterlife.egg-info/SOURCES.txt
+src/plato_afterlife.egg-info/dependency_links.txt
+src/plato_afterlife.egg-info/top_level.txt

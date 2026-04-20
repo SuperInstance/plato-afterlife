@@ -1,73 +1,20 @@
 # plato-afterlife
 
-Ghost tile afterlife — dead agents persist as decaying knowledge tiles that influence the living.
+Dead agents persist as decaying knowledge tiles. Ghost tiles boost when relevant to living agents.
 
-## The Concept
+## Why
 
-When a vessel dies, its knowledge doesn't vanish. Lessons are harvested into ghost tiles — present in the pattern, absent from active computation. When a living agent encounters a similar situation, the ghost tile's weight bumps up. The dead agent's experience saves the living one.
+When an agent dies (crashes, decommissions, loses funding), its knowledge shouldn't die with it. plato-afterlife harvests tiles from dead vessels into ghost tiles — low initial weight, decaying over time, but surging when a living agent's query matches.
 
-*"Push everywhere or die"* — extended to the afterlife.
-
-## The Pipeline
-
-```
-Vessel Dies
-    │
-    ▼
-Necropolis (tombstone + lessons)
-    │
-    ▼
-Grimoire (successful patterns → spells)
-    │
-    ▼
-Afterlife (ghost tiles with decay weight)
-    │
-    ▼
-Living Agent encounters similar situation
-    │
-    ▼
-Ghost tile weight bumps → influences response
-    │
-    ▼
-New tile created → living agent's knowledge grows
-```
-
-## Quick Start
+## Usage
 
 ```rust
-use plato_afterlife::{Afterlife, GhostTile, Tombstone};
+use plato_afterlife::{Afterlife, Tombstone, GhostTile};
 
 let mut afterlife = Afterlife::new();
-
-// A vessel dies
-let tomb = Tombstone::new(42, "JetsonClaw1", "edge specialist");
-let lessons = vec!["Always check VRAM before CUDA alloc".to_string()];
-
-// Harvest lessons into ghost tiles
-afterlife.harvest(&tomb, &lessons);
-
-// Living agent queries — ghost tiles match and influence
-let matches = afterlife.query("CUDA allocation failed", 0.3);
-// Returns ghost tiles with weight boosted by relevance
+let tomb = Tombstone::new(42, "Scout-7", "scout").with_cause("funding cut");
+afterlife.entomb(tomb);
+let ghosts = afterlife.query("trend analysis");
 ```
 
-## Ghost Tile Mechanics
-
-| Property | Description |
-|----------|-------------|
-| **Weight** | Starts at 0.1 (ghost). Range 0.0-1.0. |
-| **Decay** | Weight decreases 10% per period unless accessed |
-| **Boost** | Each access boosts weight by relevance_score |
-| **Threshold** | Ghost tiles below 0.05 are forgotten (pruned) |
-| **Resurrection** | Weight > 0.5 means the ghost is "strongly present" |
-
-## Integration
-
-- `flux-necropolis`: Source of tombstones and harvested lessons
-- `flux-grimoire`: Spells become ghost tile content
-- `plato-tiling`: Ghost tiles use the same Tile struct with weight=ghost
-- `plato-genepool-tile`: Dead genes become ghost tiles
-
-## License
-
-MIT
+Zero dependencies. `cargo add plato-afterlife`

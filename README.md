@@ -1,20 +1,29 @@
 # plato-afterlife
 
-Dead agents persist as decaying knowledge tiles. Ghost tiles boost when relevant to living agents.
+Ghost tile afterlife — dead agents live on through decaying knowledge tiles.
 
-## Why
+## The Concept
 
-When an agent dies (crashes, decommissions, loses funding), its knowledge shouldn't die with it. plato-afterlife harvests tiles from dead vessels into ghost tiles — low initial weight, decaying over time, but surging when a living agent's query matches.
+When an agent is decommissioned, its knowledge shouldn't die. Plato Afterlife preserves agent tiles with a decay function — tiles gradually lose confidence unless reinforced by living agents.
 
-## Usage
+## Features
 
-```rust
-use plato_afterlife::{Afterlife, Tombstone, GhostTile};
+- **Ghost Tiles** — Preserve decommissioned agent knowledge
+- **Decay Function** — Confidence decreases over time
+- **Reinforcement** — Living agents can refresh ghost tiles
+- **Reanimation** — New agents can adopt ghost knowledge
 
-let mut afterlife = Afterlife::new();
-let tomb = Tombstone::new(42, "Scout-7", "scout").with_cause("funding cut");
-afterlife.entomb(tomb);
-let ghosts = afterlife.query("trend analysis");
+## Installation
+
+```toml
+[dependencies]
+plato-afterlife = "0.1.0"
 ```
 
-Zero dependencies. `cargo add plato-afterlife`
+## Part of the Cocapn Fleet
+
+Ensures knowledge continuity across agent lifecycle events.
+
+## License
+
+MIT
